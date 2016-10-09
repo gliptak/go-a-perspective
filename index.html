@@ -62,8 +62,6 @@ func main() {
 ```
 [hello1.go](hello1.go)
 
-https://tour.golang.org/welcome/1
-
 ---
 
 # In a few words
@@ -161,17 +159,36 @@ Note sizes, and also map, function and channel as built-ins
 
 ---
 
+# Named types
+
+* Let the compiler tell you that parameters were mixed up
+
+[namedtype1.go](namedtype1.go)
+
+???
+Not frequently highlighted
+
+---
+
 # Closures
+
+* Similar to most modern languages
+
+[fibonacci1.go](fibonacci1.go)
 
 ---
 
 # Interfaces
 
 * If a type implements all methods of an interface, then it implements the interface
-* There is no hierachy of interfaces
+* There is no hierarchy of interfaces
 * Interfaces are often introduced during codebase refactoring
 
 ```go
+type Stringer interface {
+    String() string
+}
+
 type Reader interface {
     Read(p []byte) (n int, err error)
 }
@@ -181,6 +198,17 @@ type Writer interface {
 }
 ```
 * All types implement the empty interface (interface{})
+* Methods can be implemented on any type (including built-in types)
+
+???
+No implements like in Java
+Think "monkey-patching" in Ruby
+
+---
+
+# Reflection
+
+Type information is available and can be queried runtime
 
 ---
 
@@ -199,13 +227,18 @@ func TestAddition(t *testing.T)
 
 * A go call turns a function (closure) invocation into a goroutine
 * Channels support concurrent processing using message passing (like Joe Armstrong Erlang metaphor)
-* Channels are FIFO queues with syncronized operations
+* Channels are shared memory FIFO queues with syncronized operations (buffered or unbuffered)
 * For a lot of simple goroutines, the 4 kB stack is probably more than necessary, which means you can run
 hundreds of thousands of go routines on desktop hardware (although worker pools might be the preferred
 approach in most cases). Contrast this to C threads, where 64 kB is a tiny stack and 1-4 MB is more common.
 
 ???
-Discuss Unix fork, Actors (Erlang in particular), Java threads, Python asyncio/coroutines
+Discuss Unix fork, Actors (Erlang in particular, immutable messages), Java threads, Python asyncio/coroutines
+
+---
+
+# Go Routines
+
 
 ---
 
@@ -215,11 +248,17 @@ Still have to be used to synchronize access to shared variables
 
 ---
 
+# Go Routines Select (Multiplex Channels) and Timeouts
+
+[timeout1.go](timeout1.go)
+
+---
+
 # Exception handling
 
 * panic (think throw runtime error)
 * recover (catch)
-* defer (finally)
+* defer (function scoped finally)
 
 ---
 
@@ -231,7 +270,7 @@ The import point is that when you go to compile A, you don’t reload C’s obje
 In a real program, the dependencies are usually not a chain like this. We might have A1, A2, A3, and so on all importing B.
 It’s a significant win if none of them need to reread C.
 ???
-Folder names aere package names like in Java
+Folder names are package names like in Java
 
 ---
 
@@ -242,7 +281,7 @@ Folder names aere package names like in Java
 * https://gobyexample.com/
 * http://www.golang-book.com/books/intro
 * https://gowalker.org/
-* Search for Go presentation videos on http://youtube.com
+* Search for Go (golang) presentation videos on http://youtube.com
 
 ---
 
@@ -264,12 +303,8 @@ Folder names aere package names like in Java
 * http://research.swtch.com/gotour
 * https://play.golang.org/p/ssVH6Rg3-Z FizzBuzz with channels
 * https://play.golang.org/p/lZtjYkD2dI Webcrawler
-
----
-
-# More Links
-
 * https://channel9.msdn.com/Events/Lang-NEXT/Lang-NEXT-2012/Go-In-Three-Easy-Pieces
+
 
     </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">
