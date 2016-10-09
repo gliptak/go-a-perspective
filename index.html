@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Go A Perspective</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body onload="var slideshow = remark.create();">
+    <textarea id="source">
+
+class: center, middle
+
+# Go A Perspective
+### Presented by Gabor Liptak
+
+---
+
+# Agenda
+
+1. Introduction
+1. Highlights
+1. Links
+1. Q & A
+
+---
+
+# What can you expect from this presentation?
+
+I will offer highlights of Go features anchoring them onto other languages like
+C, Java, Python, etc.
+
+About me: I work as an architect, using Java, Python day-to-day
+and used and/or studied C/C++, Smalltalk, Erlang, Haskell, Go and other programming languages
+
+About you: You bring coding background and your questions. Those with Go background,
+please offer suggestions on how this presentation can be improved
+
+---
+
+# Obligatory Hello World!
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	str := "Hello, 世界"
+	fmt.Println(str)
+}
+```
+[hello1.go](hello1.go)
+
+https://tour.golang.org/welcome/1
+
+---
+
+# In a few words
+
+Go is a statically typed, compiled language with a dynamic and lightweight feel. With Go you get the efficiency benefits of being close to the machine – your programs compile to native code – with the productivity benefits of a scripting language. Go apps tend to run faster and use less memory than equivalent Python or Java apps, and Go's concurrency primitives make it easy to write web applications. This talk presents the key language features that make Go stand out from the crowd.
+
+https://channel9.msdn.com/Events/Lang-NEXT/Lang-NEXT-2012/Go-In-Three-Easy-Pieces
+
+---
+
+# A better C(++) (!?)
+
+Developed at Google by [Rob Pike (Plan 9 at Bell Labs, Sawzall)](https://en.wikipedia.org/wiki/Rob_Pike),
+[Ken Thompson (UNIX at Bell Labs, UTF-8)](https://en.wikipedia.org/wiki/Ken_Thompson),
+[Robert Griesemer (Sawzall, V8, StrongTalk at Google Research)](http://research.google.com/pubs/author96.html),
+[Ross Cox (Plan 9)](http://research.swtch.com/) and others.
+
+Project initiated in 2007, open sourced in 2009
+
+Used internally at Google, Heroku, Atlassian and by projects like Docker, CoreOS
+
+---
+
+# Highlights
+
+* General purpose
+* Made to Top 10 Repository Languages on Github https://octoverse.github.com/ http://githut.info/
+* Compact language (25 reserved keywords)
+* Garbage collected
+* Statically typed
+* Type-safe and memory safe (unless unsafe package is used)
+* Concurrency built into the language
+* Simple syntax (no semicolons in particular, curly braces required for if/for)
+* Orthogonal language features (principle of least surprise)
+* Object (but not type) oriented (see interfaces)
+* Compile efficiently at scale, no transitive dependency loading
+* Statically linked (while fat binaries, single artifact to worry about)
+* Standard library (batteries included, in particular crypto)
+* De facto formatting (with tabs :) ) using gofmt (also used as API updater gofix)
+* Exception handling
+
+???
+30 keywords for C
+---
+
+# Another Example
+
+```go
+package main
+
+import (
+	"net/http"
+	"fmt"
+)
+
+func hello(w http.ResponseWriter, r *http.Request) {
+	p := r.URL.Path[1:]
+	if len(p) == 0 {
+		p = "root"
+	}
+	fmt.Fprintf(w, "Hi there, loading %s!", p)
+}
+
+func monkey(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello Monkey!")
+}
+
+func main() {
+	http.HandleFunc("/", hello)
+	http.HandleFunc("/monkey", monkey)
+	http.ListenAndServeTLS(":10443", "cert.pem", "key.pem", nil)
+}
+```
+[webserver1.go](webserver1.go)
+
+---
+
+# Built-in types
+
+* bool
+* int/uint (8/16/32/64)
+* float (32/64)
+* complex (64/128)
+* string
+* array/slice
+* struct
+* pointer
+* function
+* interface
+* map
+* channel
+
+???
+Note sizes, and also map, function and channel as built-ins
+
+---
+
+# Closures
+
+---
+
+# Interfaces
+
+* If a type implements all methods of an interface, then it implements the interface
+* There is no hierachy of interfaces
+* Interfaces are often introduced during codebase refactoring
+
+```go
+type Reader interface {
+    Read(p []byte) (n int, err error)
+}
+
+type Writer interface {
+    Write(p []byte) (n int, err error)
+}
+```
+* All types implement the empty interface (interface{})
+
+---
+
+# Testing
+
+The ```go test``` command will look for any tests in any of the files in the current folder and run them.
+
+```go
+func TestAddition(t *testing.T)
+```
+[sample1_test.go](sample1_test.go)
+
+---
+
+# Go Routines and Channels
+
+* A go call turns a function (closure) invocation into a goroutine
+* Channels support concurrent processing using message passing (like Joe Armstrong Erlang metaphor)
+* Channels are FIFO queues with syncronized operations
+* For a lot of simple goroutines, the 4 kB stack is probably more than necessary, which means you can run
+hundreds of thousands of go routines on desktop hardware (although worker pools might be the preferred
+approach in most cases). Contrast this to C threads, where 64 kB is a tiny stack and 1-4 MB is more common.
+
+???
+Discuss Unix fork, Actors (Erlang in particular), Java threads, Python asyncio/coroutines
+
+---
+
+# Mutexes
+
+Still have to be used to synchronize access to shared variables
+
+---
+
+# Exception handling
+
+* panic (think throw runtime error)
+* recover (catch)
+* defer (finally)
+
+---
+
+# Packages / Build Times
+
+Package names based on folder names.
+Of course, if you are building from scratch and package A imports B which imports C, then of course C has to be compiled first, and then B, and then A.
+The import point is that when you go to compile A, you don’t reload C’s object file.
+In a real program, the dependencies are usually not a chain like this. We might have A1, A2, A3, and so on all importing B.
+It’s a significant win if none of them need to reread C.
+???
+Folder names aere package names like in Java
+
+---
+
+# Links
+
+* https://tour.golang.org/
+* https://play.golang.org/
+* https://gobyexample.com/
+* http://www.golang-book.com/books/intro
+* https://gowalker.org/
+* Search for Go presentation videos on http://youtube.com
+
+---
+
+# Q & A
+
+---
+
+# Backup slide
+
+* http://marcio.io/2015/07/handling-1-million-requests-per-minute-with-golang/
+* https://gist.github.com/harlow/dbcd639cf8d396a2ab73
+* https://gobyexample.com/worker-pools
+* https://gist.github.com/mcastilho/e051898d129b44e2f502 Cheap MapReduce in Go
+* http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/
+* https://github.com/golang/go/wiki/GoUsers
+* https://github.com/golang/go/wiki/SuccessStories
+* https://github.com/mjibson/goread
+* http://www.goread.io/
+* http://research.swtch.com/gotour
+* https://play.golang.org/p/ssVH6Rg3-Z FizzBuzz with channels
+* https://play.golang.org/p/lZtjYkD2dI Webcrawler
+
+---
+
+# More Links
+
+* https://channel9.msdn.com/Events/Lang-NEXT/Lang-NEXT-2012/Go-In-Three-Easy-Pieces
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
