@@ -43,10 +43,25 @@ C, Java, Python, etc.
 About me: I work as an architect, using Java, Python day-to-day
 and used and/or studied C/C++, Smalltalk, Erlang, Haskell, Go and other programming languages
 
-About you: You bring coding background and your questions. Those with Go background,
-please offer suggestions on how this presentation can be improved
+About you: You bring coding background and your questions (feel free to ask them during the presentation).
+Those with Go background, please offer suggestions on how this presentation can be improved.
 
 ---
+
+# Why (learn) Go?
+
+Most software projects have server-side scalability needs, but the paradigms offered by most mainstream languages
+are hard to code (correctly) and hard to reason about.
+
+Go's built-in concurrency helps, as [real world examples](https://github.com/golang/go/wiki/SuccessStories) show.
+
+[Anecdotal comments](https://www.iron.io/how-we-went-from-30-servers-to-2-go/):
+"After we rolled out our Go version, we reduced our server count (from 30) to two and we really only had two for redundancy.
+They were barely utilized, it was almost as if nothing was running on them.
+Our CPU utilization was less than 5% and the entire process started up with only a few hundred KB’s of memory
+(on startup) vs our Rails apps which were ~50MB (on startup)."
+
+--
 
 # Obligatory Hello World!
 
@@ -82,10 +97,11 @@ eBay, Facebook, Booking.com, Netflix, Newrelic, Github and [numerous others](htt
 
 * General purpose
 * Made to Top 10 Repository Languages on Github https://octoverse.github.com/ http://githut.info/
+* [Top 5 Most Loved Language](http://stackoverflow.com/research/developer-survey-2016#technology-most-loved-dreaded-and-wanted)
 * Development happens in the open (mailing lists, Github)
 * Pragmatic and expressive feature choices
 * Orthogonal language features (principle of least surprise)
-* Standard library (batteries included, in particular crypto)
+* Standard library (batteries included, in particular networking, crypto, JSON)
 * Compact language (25 reserved keywords)
 * Garbage collected
 * Statically typed
@@ -94,7 +110,7 @@ eBay, Facebook, Booking.com, Netflix, Newrelic, Github and [numerous others](htt
 * Simple syntax (no semicolons in particular, curly braces required for if/for)
 * Object (but not type) oriented (see interfaces)
 * Compile efficiently at scale, no transitive dependency loading
-* Statically linked (while fat binaries, single artifact to worry about)
+* Statically linked (while fatter binaries, single artifact to worry about)
 * De facto formatting (with tabs :) ) using gofmt (also used as API updater gofix)
 * Exception handling
 
@@ -205,6 +221,8 @@ Think "monkey-patching" in Ruby
 
 Type information is available and can be queried runtime
 
+https://blog.golang.org/laws-of-reflection
+
 ---
 
 # Testing
@@ -223,7 +241,7 @@ func TestAddition(t *testing.T)
 * A go call turns a function (closure) invocation into a goroutine
 * Channels support concurrent processing using message passing (like Joe Armstrong's Erlang metaphor)
 * Channels are shared memory FIFO queues with syncronized operations (buffered or unbuffered)
-* For a lot of simple goroutines, the 4 kB stack is probably more than necessary, which means you can run
+* For a lot of simple goroutines, the 2 kB stack is probably more than necessary, which means you can run
 hundreds of thousands of go routines on desktop hardware (although worker pools might be the preferred
 approach in most cases). Contrast this to C threads, where 64 kB is a tiny stack and 1-4 MB is more common.
 
@@ -234,6 +252,7 @@ Discuss Unix fork, Actors (Erlang in particular, immutable messages), Java threa
 
 # Go Routines
 
+* Main function exits, the program stops
 
 ---
 
@@ -312,13 +331,15 @@ Folder names are package names like in Java
 * https://gobyexample.com/worker-pools
 * https://gist.github.com/mcastilho/e051898d129b44e2f502 Cheap MapReduce in Go
 * http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/
-* https://github.com/golang/go/wiki/SuccessStories
 * https://github.com/mjibson/goread
 * http://www.goread.io/
 * http://research.swtch.com/gotour
 * https://play.golang.org/p/ssVH6Rg3-Z FizzBuzz with channels
 * https://play.golang.org/p/lZtjYkD2dI Webcrawler
 * https://channel9.msdn.com/Events/Lang-NEXT/Lang-NEXT-2012/Go-In-Three-Easy-Pieces
+* http://www.cs.cmu.edu/~crary/819-f09/Hoare78.pdf
+* https://news.ntppool.org/2012/10/new-dns-server/
+* http://marcio.io/2015/07/cheap-mapreduce-in-go/
 
 
     </textarea>
