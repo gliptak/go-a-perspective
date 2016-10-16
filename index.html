@@ -221,7 +221,7 @@ func TestAddition(t *testing.T)
 # Go Routines and Channels
 
 * A go call turns a function (closure) invocation into a goroutine
-* Channels support concurrent processing using message passing (like Joe Armstrong Erlang metaphor)
+* Channels support concurrent processing using message passing (like Joe Armstrong's Erlang metaphor)
 * Channels are shared memory FIFO queues with syncronized operations (buffered or unbuffered)
 * For a lot of simple goroutines, the 4 kB stack is probably more than necessary, which means you can run
 hundreds of thousands of go routines on desktop hardware (although worker pools might be the preferred
@@ -239,18 +239,24 @@ Discuss Unix fork, Actors (Erlang in particular, immutable messages), Java threa
 
 # Mutexes
 
-* Channel
-** Passing ownership of data
-** Distributing units of work
-** Communicating async results
-* Mutex
-** Caches
-** State
+* Channel best used for
+    * Passing ownership of data
+    * Distributing units of work
+    * Communicating async results
+* Mutexes best used for
+    * Caches
+    * State
 * Don't be afraid to switch paradigms
+* Data race detector
+
+[mutex-counter1.go](mutex-counter1.go)
+
+[race1.go](race1.go)
 
 ???
 Old habits die hard
 https://github.com/golang/go/wiki/MutexOrChannel
+https://golang.org/doc/articles/race_detector.html
 ---
 
 # Go Routines Select and Timeout
