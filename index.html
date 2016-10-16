@@ -64,14 +64,6 @@ func main() {
 
 ---
 
-# In a few words
-
-Go is a statically typed, compiled language with a dynamic and lightweight feel. With Go you get the efficiency benefits of being close to the machine – your programs compile to native code – with the productivity benefits of a scripting language. Go apps tend to run faster and use less memory than equivalent Python or Java apps, and Go's concurrency primitives make it easy to write web applications. This talk presents the key language features that make Go stand out from the crowd.
-
-https://channel9.msdn.com/Events/Lang-NEXT/Lang-NEXT-2012/Go-In-Three-Easy-Pieces
-
----
-
 # A better C(++) (!?)
 
 Developed at Google by [Rob Pike (Plan 9 at Bell Labs, Sawzall)](https://en.wikipedia.org/wiki/Rob_Pike),
@@ -81,7 +73,8 @@ Developed at Google by [Rob Pike (Plan 9 at Bell Labs, Sawzall)](https://en.wiki
 
 Project initiated in 2007, open sourced in 2009
 
-Used internally at Google, Heroku, Atlassian and by projects like Docker, CoreOS
+Used by Google (Kubernetes, internal projects), Docker, CoreOS, Dropbox, Heroku, Atlassian, Brightcove,
+eBay, Facebook, Booking.com, Netflix, Newrelic, Github and [numerous others](https://github.com/golang/go/wiki/GoUsers)
 
 ---
 
@@ -89,17 +82,19 @@ Used internally at Google, Heroku, Atlassian and by projects like Docker, CoreOS
 
 * General purpose
 * Made to Top 10 Repository Languages on Github https://octoverse.github.com/ http://githut.info/
+* Development happens in the open (mailing lists, Github)
+* Pragmatic and expressive feature choices
+* Orthogonal language features (principle of least surprise)
+* Standard library (batteries included, in particular crypto)
 * Compact language (25 reserved keywords)
 * Garbage collected
 * Statically typed
 * Type-safe and memory safe (unless unsafe package is used)
 * Concurrency built into the language
 * Simple syntax (no semicolons in particular, curly braces required for if/for)
-* Orthogonal language features (principle of least surprise)
 * Object (but not type) oriented (see interfaces)
 * Compile efficiently at scale, no transitive dependency loading
 * Statically linked (while fat binaries, single artifact to worry about)
-* Standard library (batteries included, in particular crypto)
 * De facto formatting (with tabs :) ) using gofmt (also used as API updater gofix)
 * Exception handling
 
@@ -244,11 +239,24 @@ Discuss Unix fork, Actors (Erlang in particular, immutable messages), Java threa
 
 # Mutexes
 
-Still have to be used to synchronize access to shared variables
+* Channel
+** Passing ownership of data
+** Distributing units of work
+** Communicating async results
+* Mutex
+** Caches
+** State
+* Don't be afraid to switch paradigms
 
+???
+Old habits die hard
+https://github.com/golang/go/wiki/MutexOrChannel
 ---
 
-# Go Routines Select (Multiplex Channels) and Timeouts
+# Go Routines Select and Timeout
+
+* Select multiplexes channels (including timeout "pseudo" channels)
+* This is built-in into the language
 
 [timeout1.go](timeout1.go)
 
@@ -259,6 +267,8 @@ Still have to be used to synchronize access to shared variables
 * panic (think throw runtime error)
 * recover (catch)
 * defer (function scoped finally)
+
+https://blog.golang.org/defer-panic-and-recover
 
 ---
 
@@ -276,7 +286,7 @@ Folder names are package names like in Java
 
 # Links
 
-* https://tour.golang.org/
+* https://tour.golang.org/list
 * https://play.golang.org/
 * https://gobyexample.com/
 * http://www.golang-book.com/books/intro
@@ -296,7 +306,6 @@ Folder names are package names like in Java
 * https://gobyexample.com/worker-pools
 * https://gist.github.com/mcastilho/e051898d129b44e2f502 Cheap MapReduce in Go
 * http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/
-* https://github.com/golang/go/wiki/GoUsers
 * https://github.com/golang/go/wiki/SuccessStories
 * https://github.com/mjibson/goread
 * http://www.goread.io/

@@ -1,4 +1,6 @@
 //
+// Inspired by https://golang.org/doc/articles/wiki/#tmp_3
+//
 // Generated certs running
 //
 // go run /usr/lib/go/src/crypto/tls/generate_cert.go --host localhost
