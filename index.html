@@ -22,7 +22,7 @@
 class: center, middle
 
 # Go A Perspective
-### Presented by Gabor Liptak
+### Presented by Gábor Lipták
 
 ---
 
@@ -55,13 +55,13 @@ are hard to code (correctly) and hard to reason about.
 
 Go's built-in concurrency helps, as [real world examples](https://github.com/golang/go/wiki/SuccessStories) show.
 
-[Anecdotal comments](https://www.iron.io/how-we-went-from-30-servers-to-2-go/):
+[Anecdotal comments (from iron.io which posted the first commercial Go job posting)](https://www.iron.io/how-we-went-from-30-servers-to-2-go/):
 "After we rolled out our Go version, we reduced our server count (from 30) to two and we really only had two for redundancy.
 They were barely utilized, it was almost as if nothing was running on them.
 Our CPU utilization was less than 5% and the entire process started up with only a few hundred KB’s of memory
 (on startup) vs our Rails apps which were ~50MB (on startup)."
 
---
+---
 
 # Obligatory Hello World!
 
@@ -109,10 +109,11 @@ eBay, Facebook, Booking.com, Netflix, Newrelic, Github and [numerous others](htt
 * Concurrency built into the language
 * Simple syntax (no semicolons in particular, curly braces required for if/for)
 * Object (but not type) oriented (see interfaces)
+* Functions are first class objects (but no tail recursion)
 * Compile efficiently at scale, no transitive dependency loading
 * Statically linked (while fatter binaries, single artifact to worry about)
 * De facto formatting (with tabs :) ) using gofmt (also used as API updater gofix)
-* Exception handling
+* Handling exceptional situations
 
 ???
 30 keywords for C
@@ -187,6 +188,9 @@ Not frequently highlighted
 
 [fibonacci1.go](fibonacci1.go)
 
+???
+There is a saying in computer science that a class is "data with operations
+attached" while a closure is "operations with data attached."
 ---
 
 # Interfaces
@@ -208,7 +212,7 @@ type Writer interface {
     Write(p []byte) (n int, err error)
 }
 ```
-* All types implement the empty interface (interface{})
+* All types implement the empty interface (`interface{}`)
 * Methods can be implemented on any type (including built-in types)
 
 ???
@@ -247,6 +251,12 @@ approach in most cases). Contrast this to C threads, where 64 kB is a tiny stack
 
 ???
 Discuss Unix fork, Actors (Erlang in particular, immutable messages), Java threads, Python asyncio/coroutines
+Actors serialize access to state
+Like & in Shell
+Don't communicate by sharing memory; instead share memory by communicating
+Erlang message passing is asynch/buffered, actors have identity vs Go channels
+have identity
+[Alan Kay OO missed out messaging](http://www.purl.org/stefan_ram/pub/doc_kay_oop_en)
 
 ---
 
@@ -287,8 +297,9 @@ https://golang.org/doc/articles/race_detector.html
 
 ---
 
-# Exception handling
+# Handling exceptional situations
 
+* Standard library prefers to use "err" return values instead
 * panic (think throw runtime error)
 * recover (catch)
 * defer (function scoped finally)
