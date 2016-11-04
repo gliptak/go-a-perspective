@@ -103,7 +103,7 @@ eBay, Facebook, Booking.com, Netflix, Newrelic, Github and [numerous others](htt
 * Orthogonal language features (principle of least surprise)
 * Standard library (batteries included, in particular networking, crypto, JSON)
 * Compact language (25 reserved keywords)
-* Garbage collected
+* Garbage collected (soft guarantee)
 * Statically typed
 * Type-safe and memory safe (unless unsafe package is used)
 * Concurrency built into the language
@@ -117,6 +117,7 @@ eBay, Facebook, Booking.com, Netflix, Newrelic, Github and [numerous others](htt
 
 ???
 30 keywords for C
+No operator/keyword overload
 ---
 
 # Another Example
@@ -198,6 +199,7 @@ attached" while a closure is "operations with data attached."
 * If a type implements all methods of an interface, then it implements the interface
 * There is no hierarchy of interfaces
 * Interfaces are often introduced during codebase refactoring
+* No generics
 
 ```go
 type Stringer interface {
@@ -215,10 +217,12 @@ type Writer interface {
 * All types implement the empty interface (`interface{}`)
 * Methods can be implemented on any type (including built-in types)
 
+**TODO**
+
 ???
 No implements like in Java
 Think "monkey-patching" in Ruby
-
+No parametric polymorphism
 ---
 
 # Reflection
@@ -227,11 +231,13 @@ Type information is available and can be queried runtime
 
 https://blog.golang.org/laws-of-reflection
 
+**TODO**
+
 ---
 
 # Testing
 
-The ```go test``` command will look for any tests in any of the files in the current folder and run them.
+The `go test` command will look for any tests in any of the files in the current folder and run them.
 
 ```go
 func TestAddition(t *testing.T)
@@ -263,6 +269,8 @@ have identity
 # Go Routines
 
 * Main function exits, the program stops
+
+**TODO**
 
 ---
 
@@ -299,12 +307,15 @@ https://golang.org/doc/articles/race_detector.html
 
 # Handling exceptional situations
 
-* Standard library prefers to use "err" return values instead
-* panic (think throw runtime error)
-* recover (catch)
-* defer (function scoped finally)
+* Standard library prefers to use `err` return values instead
+* Multiple return values and `nil`
+* `panic` (think throw runtime error)
+* `recover` (catch)
+* `defer` (function scoped finally)
 
 https://blog.golang.org/defer-panic-and-recover
+
+**TODO**
 
 ---
 
