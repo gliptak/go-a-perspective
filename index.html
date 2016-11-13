@@ -220,7 +220,7 @@ type Writer interface {
 **TODO**
 
 ???
-No implements like in Java
+`implements` not required like in Java
 Think "monkey-patching" in Ruby
 No parametric polymorphism
 ---
@@ -228,10 +228,9 @@ No parametric polymorphism
 # Reflection
 
 Type information is available and can be queried runtime
+Used by standard Go libraries like [JSON](https://github.com/golang/go/tree/master/src/encoding/json)
 
-https://blog.golang.org/laws-of-reflection
-
-**TODO**
+[reflect1.go](reflect1.go)
 
 ---
 
@@ -309,13 +308,13 @@ https://golang.org/doc/articles/race_detector.html
 
 * Standard library prefers to use `err` return values instead
 * Multiple return values and `nil`
+* Exceptions do feel like an afterthought ...
 * `panic` (think throw runtime error)
-* `recover` (catch)
+* `recover` (function scoped catch)
 * `defer` (function scoped finally)
 
-https://blog.golang.org/defer-panic-and-recover
-
-**TODO**
+[panic1.go](panic1.go)
+[panic2.go](panic2.go)
 
 ---
 
@@ -328,7 +327,7 @@ In a real program, the dependencies are usually not a chain like this. We might 
 It’s a significant win if none of them need to reread C.
 ???
 Folder names are package names like in Java
-
+See http://xkcd.com/303/
 ---
 
 # Links
@@ -337,8 +336,17 @@ Folder names are package names like in Java
 * https://play.golang.org/
 * https://gobyexample.com/
 * http://www.golang-book.com/books/intro
+* http://www.golangbootcamp.com/
 * https://gowalker.org/
+* http://gophervids.appspot.com/
 * Search for Go (golang) presentation videos on http://youtube.com
+
+---
+
+# The other side of the coin
+
+* http://yager.io/programming/go.html
+* http://dtrace.org/blogs/wesolows/2014/12/29/golang-is-trash/
 
 ---
 
@@ -362,6 +370,7 @@ Folder names are package names like in Java
 * http://www.cs.cmu.edu/~crary/819-f09/Hoare78.pdf
 * https://news.ntppool.org/2012/10/new-dns-server/
 * http://marcio.io/2015/07/cheap-mapreduce-in-go/
+* https://github.com/ksimka/go-is-not-good
 
 
     </textarea>
