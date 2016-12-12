@@ -201,12 +201,16 @@ There is a saying in computer science that a class is "data with operations
 attached" while a closure is "operations with data attached."
 ---
 
-# Interfaces
+# Interfaces 1/2
 
 * If a type implements all methods of an interface, then it implements the interface
 * There is no hierarchy of interfaces
 * Interfaces are often introduced during codebase refactoring
 * No generics
+
+---
+
+# Interfaces 2/2
 
 ```go
 type Stringer interface {
@@ -224,7 +228,7 @@ type Writer interface {
 * All types implement the empty interface (`interface{}`)
 * Methods can be implemented on any type (including built-in types)
 
-**TODO**
+[writer1_test.go](writer1_test.go)
 
 ???
 `implements` not required like in Java
@@ -277,8 +281,7 @@ have identity
 * Main function exits, the program stops
 
 [pingpong1.go](pingpong1.go)
-
-** TODO **
+[fibonacci2.go](fibonacci2.go)
 
 ---
 
@@ -295,7 +298,6 @@ have identity
 * Data race detector
 
 [mutex-counter1.go](mutex-counter1.go)
-
 [race1.go](race1.go)
 
 ???
@@ -383,6 +385,8 @@ See http://xkcd.com/303/
 * https://github.com/ksimka/go-is-not-good
 * http://blog.ralch.com/tutorial/
 * https://www.youtube.com/watch?v=0ReKdcpNyQg
+* https://youtu.be/f6kdp27TYZs
+* https://youtu.be/QDDwwePbDtw
 
 
     </textarea>
